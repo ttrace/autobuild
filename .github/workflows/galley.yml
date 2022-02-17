@@ -46,9 +46,6 @@ jobs:
     - name: build html
       run: node .github/workflows/build.js
 
-    - name: publish.galley
-      run: npx vivliostyle build -t 240 .github/workflows/pre-run.html
-
     - name: publish.galley2
       run: npx vivliostyle build -t 600 publish/buildHtml.html -o publish/${{ github.ref }}.pdf
 
