@@ -1,0 +1,35 @@
+{
+  "name": "vivliostyle-test",
+  "version": "1.5.alpha.01",
+  "title": "ジーン・マッパー",
+  "description": "vivliostyleのテスト用プロジェクト",
+  "main": "gulpfile.js",
+  "scripts": {
+    "build": "gulp default",
+    "pdf": "gulp build&&node .github/workflows/build.js&&npx vivliostyle build -t 600 publish/buildHtml.html&&open output.pdf"
+  },
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "keywords": [
+    "novel"
+  ],
+  "author": "Taiyo Fujii",
+  "license": "SEE LICENCE IN copyright.md",
+  "devDependencies": {
+    "@vivliostyle/cli": "^4.3.2",
+    "assert": "^2.0.0",
+    "del": "^6.0.0",
+    "fs": "^0.0.1-security",
+    "gulp": "^4.0.2",
+    "gulp-append-prepend": "^1.0.9",
+    "gulp-cli": "^2.3.0",
+    "gulp-concat": "^2.6.1",
+    "gulp-count-stat": "^1.0.0",
+    "gulp-foreach": "^0.1.0",
+    "gulp-header": "^2.0.9",
+    "gulp-if": "^3.0.0",
+    "gulp-order": "^1.2.0"
+  }
+}

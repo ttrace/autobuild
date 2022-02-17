@@ -1,0 +1,78 @@
+# This is a basic workflow to help you get started with Actions
+
+name: galley-build
+
+# Controls when the workflow will run
+on:
+  # Triggers the workflow on push or pull request events but only for the master branch
+  push:
+    tags:
+    - 'galley*'
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  build:
+    # The type of runner that the job will run on
+    runs-on: macOS-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Use Node.js
+      uses: actions/setup-node@v1
+      with:
+        node-version: '12.x'
+
+    - name: set language
+      run: export LANG=ja_JP.utf8
+    
+    - name: Install dependencies
+      run: npm ci
+
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+
+      # Runs a single command using the runners shell
+    - name: install Vivliostyle
+      run: npm install @vivliostyle/cli --save
+
+    - name: get version of Vivliostyle/cli
+      run: npx vivliostyle -v
+
+    - name: go gulp
+      run: npx gulp build
+
+    - name: build html
+      run: node .github/workflows/build.js
+
+    - name: publish.galley
+      run: npx vivliostyle build -t 240 .github/workflows/pre-run.html
+
+    - name: publish.galley2
+      run: npx vivliostyle build -t 600 publish/buildHtml.html -o publish/${{ github.ref }}.pdf
+
+    - name: Archive production artifacts
+      uses: actions/upload-artifact@v2
+      with:
+        name: dist-galley
+        path: publish/${{ github.ref }}.pdf
+
+    - name: Archive production artifacts text
+      uses: actions/upload-artifact@v2
+      with:
+        name: dist-text
+        path: publish/novel.txt
+
+    - uses: softprops/action-gh-release@v1
+      if: startsWith(github.ref, 'refs/tags/')
+      with:
+        body: "${{ github.ref }}で更新した原稿です"
+        files: |
+          publish/refs/tags/*.pdf
+          publish/novel.txt
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

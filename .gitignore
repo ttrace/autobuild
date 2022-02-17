@@ -1,0 +1,8 @@
+node_modules/
+tmp/*.txt
+tmp/toc.html
+publish/*.txt
+publish/*.html
+output.pdf
+*.icloud
+.DS_Store
