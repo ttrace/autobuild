@@ -8,17 +8,18 @@ fs.readFile("tmp/toc.html", "utf-8", (err, data) => {
     //    console.log(data);
     tocHTML = data;
     console.log("目次取得完了");
+
+    fs.readFile("publish/novel.txt", "utf-8", (err, data) => {
+      if (err) throw err;
+  //    console.log(data);
+      publishingHTML = buildHtml(data);
+      fs.writeFile("publish/buildHtml.html",publishingHTML,function(err){
+          if(err) throw err;
+          console.log("HTML書き込み完了");
+       });
+      });
   });
 
-fs.readFile("publish/novel.txt", "utf-8", (err, data) => {
-    if (err) throw err;
-//    console.log(data);
-    publishingHTML = buildHtml(data);
-    fs.writeFile("publish/buildHtml.html",publishingHTML,function(err){
-        if(err) throw err;
-        console.log("HTML書き込み完了");
-     });
-});
 
 const packageFile = fs.readFileSync("package.json", "utf-8");
 const package = JSON.parse(packageFile)
