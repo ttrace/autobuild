@@ -37,9 +37,6 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
 
       # Runs a single command using the runners shell
-    - name: install Vivliostyle
-      run: npm install @vivliostyle/cli --save
-
     - name: get version of Vivliostyle/cli
       run: npx vivliostyle -v
 
