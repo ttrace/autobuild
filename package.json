@@ -6,7 +6,7 @@
   "main": "gulpfile.js",
   "scripts": {
     "build": "gulp default",
-    "pdf": "gulp build&&node .github/workflows/build.js&&npx vivliostyle build -t 600 publish/buildHtml.html&&open output.pdf"
+    "pdf": "gulp build&&node .github/workflows/build.js&&npx vivliostyle build -t 1200 publish/buildHtml.html&&open output.pdf"
   },
   "repository": {
     "type": "git",

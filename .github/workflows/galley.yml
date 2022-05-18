@@ -47,7 +47,7 @@ jobs:
       run: node .github/workflows/build.js
 
     - name: publish.galley2
-      run: npx vivliostyle build -t 600 publish/buildHtml.html -o publish/${{ github.ref }}.pdf
+      run: npx vivliostyle build -t 1200 publish/buildHtml.html -o publish/${{ github.ref }}.pdf
 
     - name: Archive production artifacts
       uses: actions/upload-artifact@v2
